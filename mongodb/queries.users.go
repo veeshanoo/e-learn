@@ -12,7 +12,7 @@ import (
 func (mc *MongoClient) GetUser(email string, password string, checkPwd bool) (*UserAuth, error) {
 	filter := bson.M{"email": email}
 
-	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, _ := context.WithTimeout(context.Background(), 20*time.Second)
 	collection := mc.Client.Database(MyDb.DbName).Collection(MyDb.Users)
 
 	user := &UserAuth{}
@@ -37,7 +37,7 @@ func (mc *MongoClient) InsertNewUser(user *UserAuth) (*Session, error) {
 		return nil, errors.New("email already exists")
 	}
 
-	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, _ := context.WithTimeout(context.Background(), 20*time.Second)
 	collection := mc.Client.Database(MyDb.DbName).Collection(MyDb.Users)
 
 	pwd := user.Password
@@ -75,7 +75,7 @@ func (mc *MongoClient) InsertSession(email string) (*Session, error) {
 		return nil, err
 	}
 
-	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, _ := context.WithTimeout(context.Background(), 20*time.Second)
 	collection := mc.Client.Database(MyDb.DbName).Collection(MyDb.Sessions)
 	_, err = collection.InsertOne(ctx, session)
 	if err != nil {
@@ -86,7 +86,7 @@ func (mc *MongoClient) InsertSession(email string) (*Session, error) {
 }
 
 func (mc *MongoClient) GetSession(token string) (*Session, error) {
-	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, _ := context.WithTimeout(context.Background(), 20*time.Second)
 	collection := mc.Client.Database(MyDb.DbName).Collection(MyDb.Sessions)
 
 	session := &Session{}
@@ -99,7 +99,7 @@ func (mc *MongoClient) GetSession(token string) (*Session, error) {
 }
 
 func (mc *MongoClient) ClearSession(email string) error {
-	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, _ := context.WithTimeout(context.Background(), 20*time.Second)
 	collection := mc.Client.Database(MyDb.DbName).Collection(MyDb.Sessions)
 
 	filter := bson.M{"email": email}

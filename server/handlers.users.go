@@ -76,6 +76,11 @@ func (s *Server) authWrapper(f func(res http.ResponseWriter, req *http.Request))
 			return
 		}
 
+		if _, err := s.MongoClient.GetSession(query.Token); err != nil {
+			respondWithError(err, http.StatusUnauthorized, res)
+			return
+		}
+
 		req.Body.Close()
 		req.Body = ioutil.NopCloser(bytes.NewBuffer(body))
 

@@ -80,9 +80,14 @@ func (s *Server) Init() error {
 }
 
 func (s *Server) BuildHandlers() {
+	//s.Router.HandleFunc("/test", s.authWrapper(s.Test)).Methods("POST")
 	s.Router.HandleFunc("/register", s.Register).Methods("POST")
 	s.Router.HandleFunc("/login", s.Login).Methods("POST")
-	s.Router.HandleFunc("/test", s.authWrapper(s.Test)).Methods("POST")
+	s.Router.HandleFunc("/workspaces/get", s.authWrapper(s.GetWorkspaces)).Methods("POST")
+	s.Router.HandleFunc("/workspaces/insert", s.authWrapper(s.InsertWorkspace)).Methods("POST")
+	s.Router.HandleFunc("/categories/get", s.authWrapper(s.GetCategories)).Methods("POST")
+	s.Router.HandleFunc("/categories/insert", s.authWrapper(s.InsertCategory)).Methods("POST")
+	s.Router.HandleFunc("/courses", nil).Methods("GET")
 }
 
 func (s *Server) Run() {

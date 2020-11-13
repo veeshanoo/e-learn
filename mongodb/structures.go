@@ -6,10 +6,13 @@ import (
 )
 
 type MongoDb struct {
-	Url      string `json:"url"`
-	DbName   string `json:"name"`
-	Users    string `json:"users"`
-	Sessions string `json:"sessions"`
+	Url        string `json:"url"`
+	DbName     string `json:"name"`
+	Users      string `json:"users"`
+	Sessions   string `json:"sessions"`
+	Workspaces string `json:"workspaces"`
+	Categories string `json:"categories"`
+	Courses    string `json:"courses"`
 }
 
 type UserType int
@@ -42,18 +45,22 @@ type Session struct {
 
 type Workspace struct {
 	Id            primitive.ObjectID `json:"_id" bson:"_id"`
+	ImageUrl      string             `json:"url" bson:"url"`
 	Name          string             `json:"name" bson:"name"`
 	WorkspaceType WorkspaceType      `json:"type" bson:"type"`
 }
 
 type Category struct {
 	Id          primitive.ObjectID `json:"_id" bson:"_id"`
+	ImageUrl    string             `json:"url" bson:"url"`
 	WorkspaceId primitive.ObjectID `json:"workspace_id" bson:"workspace_id"`
 	Name        string             `json:"name" bson:"name"`
 }
 
 type Course struct {
 	Id         primitive.ObjectID   `json:"_id" bson:"_id"`
+	Name       string               `json:"name" bson:"name"`
+	ImageUrl   string               `json:"url" bson:"url"`
 	CategoryId primitive.ObjectID   `json:"cat_id" bson:"cat_id"`
 	TeacherId  primitive.ObjectID   `json:"teacher_id" bson:"teacher_id"`
 	Duration   int32                `json:"duration" bson:"duration"`

@@ -2,11 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="56746160-b16a-4b0d-b625-2fa85e6ef744" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/main.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mongodb/queries.categories.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mongodb/queries.courses.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/mongodb/queries.workspaces.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/handlers.categories.go" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/server/handlers.workspaces.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/mongodb/client.go" beforeDir="false" afterPath="$PROJECT_DIR$/mongodb/client.go" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mongodb/config.json" beforeDir="false" afterPath="$PROJECT_DIR$/mongodb/config.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/mongodb/queries.go" beforeDir="false" afterPath="$PROJECT_DIR$/mongodb/queries.users.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/mongodb/structures.go" beforeDir="false" afterPath="$PROJECT_DIR$/mongodb/structures.go" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server/handlers.users.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/handlers.users.go" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/server/server.go" beforeDir="false" afterPath="$PROJECT_DIR$/server/server.go" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,7 +44,7 @@
     <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="go.import.settings.migrated" value="true" />
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../go/src/healthcare" />
     <property name="settings.editor.selected.configurable" value="org.jetbrains.plugins.github.ui.GithubSettingsConfigurable" />
   </component>
   <component name="RunManager">
@@ -62,7 +66,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added new models" />
-    <option name="LAST_COMMIT_MESSAGE" value="added new models" />
+    <MESSAGE value="updated models, added auth wrapper" />
+    <option name="LAST_COMMIT_MESSAGE" value="updated models, added auth wrapper" />
   </component>
   <component name="VgoProject">
     <integration-enabled>true</integration-enabled>
@@ -72,14 +77,14 @@
       <screen x="60" y="27" width="1860" height="1053" />
     </state>
     <state x="448" y="211" width="1084" height="710" key="#com.intellij.execution.impl.EditConfigurationsDialog/60.27.1860.1053@60.27.1860.1053" timestamp="1605305701929" />
-    <state x="529" y="100" width="912" height="914" key="CommitChangelistDialog2" timestamp="1605302465011">
+    <state x="529" y="100" width="912" height="914" key="CommitChangelistDialog2" timestamp="1605308768630">
       <screen x="60" y="27" width="1860" height="1053" />
     </state>
-    <state x="529" y="100" width="912" height="914" key="CommitChangelistDialog2/60.27.1860.1053@60.27.1860.1053" timestamp="1605302465011" />
-    <state x="773" y="311" width="447" height="491" key="FileChooserDialogImpl" timestamp="1605289246807">
+    <state x="529" y="100" width="912" height="914" key="CommitChangelistDialog2/60.27.1860.1053@60.27.1860.1053" timestamp="1605308768630" />
+    <state x="773" y="311" width="447" height="491" key="FileChooserDialogImpl" timestamp="1605309212996">
       <screen x="60" y="27" width="1860" height="1053" />
     </state>
-    <state x="773" y="311" width="447" height="491" key="FileChooserDialogImpl/60.27.1860.1053@60.27.1860.1053" timestamp="1605289246807" />
+    <state x="773" y="311" width="447" height="491" key="FileChooserDialogImpl/60.27.1860.1053@60.27.1860.1053" timestamp="1605309212996" />
     <state x="851" y="453" width="277" height="207" key="Github.ShareDialog" timestamp="1605294540990">
       <screen x="60" y="27" width="1860" height="1053" />
     </state>
@@ -88,30 +93,30 @@
       <screen x="60" y="27" width="1860" height="1053" />
     </state>
     <state x="837" y="239" width="296" height="636" key="Github.UntrackedFilesDialog/60.27.1860.1053@60.27.1860.1053" timestamp="1605294561883" />
-    <state width="1814" height="275" key="GridCell.Tab.0.bottom" timestamp="1605308703636">
+    <state width="1814" height="275" key="GridCell.Tab.0.bottom" timestamp="1605311114814">
       <screen x="60" y="27" width="1860" height="1053" />
     </state>
-    <state width="1814" height="275" key="GridCell.Tab.0.bottom/60.27.1860.1053@60.27.1860.1053" timestamp="1605308703636" />
-    <state width="1814" height="275" key="GridCell.Tab.0.center" timestamp="1605308703636">
+    <state width="1814" height="275" key="GridCell.Tab.0.bottom/60.27.1860.1053@60.27.1860.1053" timestamp="1605311114814" />
+    <state width="1814" height="275" key="GridCell.Tab.0.center" timestamp="1605311114813">
       <screen x="60" y="27" width="1860" height="1053" />
     </state>
-    <state width="1814" height="275" key="GridCell.Tab.0.center/60.27.1860.1053@60.27.1860.1053" timestamp="1605308703636" />
-    <state width="1814" height="275" key="GridCell.Tab.0.left" timestamp="1605308703635">
+    <state width="1814" height="275" key="GridCell.Tab.0.center/60.27.1860.1053@60.27.1860.1053" timestamp="1605311114813" />
+    <state width="1814" height="275" key="GridCell.Tab.0.left" timestamp="1605311114813">
       <screen x="60" y="27" width="1860" height="1053" />
     </state>
-    <state width="1814" height="275" key="GridCell.Tab.0.left/60.27.1860.1053@60.27.1860.1053" timestamp="1605308703635" />
-    <state width="1814" height="275" key="GridCell.Tab.0.right" timestamp="1605308703636">
+    <state width="1814" height="275" key="GridCell.Tab.0.left/60.27.1860.1053@60.27.1860.1053" timestamp="1605311114813" />
+    <state width="1814" height="275" key="GridCell.Tab.0.right" timestamp="1605311114814">
       <screen x="60" y="27" width="1860" height="1053" />
     </state>
-    <state width="1814" height="275" key="GridCell.Tab.0.right/60.27.1860.1053@60.27.1860.1053" timestamp="1605308703636" />
+    <state width="1814" height="275" key="GridCell.Tab.0.right/60.27.1860.1053@60.27.1860.1053" timestamp="1605311114814" />
     <state x="479" y="188" width="1022" height="737" key="SettingsEditor" timestamp="1605280911210">
       <screen x="60" y="27" width="1860" height="1053" />
     </state>
     <state x="479" y="188" width="1022" height="737" key="SettingsEditor/60.27.1860.1053@60.27.1860.1053" timestamp="1605280911210" />
-    <state x="585" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1605302468312">
+    <state x="585" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2" timestamp="1605308771372">
       <screen x="60" y="27" width="1860" height="1053" />
     </state>
-    <state x="585" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/60.27.1860.1053@60.27.1860.1053" timestamp="1605302468312" />
+    <state x="585" y="289" width="800" height="535" key="Vcs.Push.Dialog.v2/60.27.1860.1053@60.27.1860.1053" timestamp="1605308771372" />
     <state x="681" y="292" width="618" height="522" key="find.popup" timestamp="1605283729840">
       <screen x="60" y="27" width="1860" height="1053" />
     </state>
