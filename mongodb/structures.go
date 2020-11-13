@@ -13,10 +13,16 @@ type MongoDb struct {
 }
 
 type UserType int
+type WorkspaceType int
 
 const (
 	UserType_Student UserType = 0
 	UserType_Doctor  UserType = 1
+)
+
+const (
+	WorkspaceType_Student   WorkspaceType = 0
+	WorkspaceType_Universal WorkspaceType = 1
 )
 
 type UserAuth struct {
@@ -35,8 +41,9 @@ type Session struct {
 }
 
 type Workspace struct {
-	Id   primitive.ObjectID `json:"_id" bson:"_id"`
-	Name string             `json:"name" bson:"name"`
+	Id            primitive.ObjectID `json:"_id" bson:"_id"`
+	Name          string             `json:"name" bson:"name"`
+	WorkspaceType WorkspaceType      `json:"type" bson:"type"`
 }
 
 type Category struct {
@@ -76,8 +83,9 @@ type Student struct {
 }
 
 type Teacher struct {
-	Id   primitive.ObjectID `json:"_id" bson:"_id"`
-	Name string             `json:"name" bson:"name"`
+	Id      primitive.ObjectID   `json:"_id" bson:"_id"`
+	Name    string               `json:"name" bson:"name"`
+	Courses []primitive.ObjectID `json:"courses" bson:"courses"`
 }
 
 type Assignment struct {

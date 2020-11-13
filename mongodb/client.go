@@ -64,7 +64,7 @@ func init() {
 }
 
 func (mc *MongoClient) InitConn() error {
-	ctx, _ := context.WithTimeout(context.Background(), 5*time.Second)
+	ctx, _ := context.WithTimeout(context.Background(), 20*time.Second)
 	dbg.ConsoleLog(MyDb.Url)
 	clientOptions := options.Client().ApplyURI(MyDb.Url)
 	var err error

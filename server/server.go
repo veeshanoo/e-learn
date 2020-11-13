@@ -82,6 +82,7 @@ func (s *Server) Init() error {
 func (s *Server) BuildHandlers() {
 	s.Router.HandleFunc("/register", s.Register).Methods("POST")
 	s.Router.HandleFunc("/login", s.Login).Methods("POST")
+	s.Router.HandleFunc("/test", s.authWrapper(s.Test)).Methods("POST")
 }
 
 func (s *Server) Run() {

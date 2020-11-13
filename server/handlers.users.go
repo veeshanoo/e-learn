@@ -1,6 +1,7 @@
 package server
 
 import (
+	"bytes"
 	"e-learn/dbg"
 	"e-learn/mongodb"
 	"encoding/json"
@@ -8,6 +9,33 @@ import (
 	"io/ioutil"
 	"net/http"
 )
+
+func (s *Server) Test(res http.ResponseWriter, req *http.Request) {
+	body, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		respondWithError(err, http.StatusInternalServerError, res)
+		return
+	}
+
+	type Ceva struct {
+		Unu int `json:"unu"`
+		Doi int `json:"doi"`
+	}
+
+	type Query struct {
+		Token string `json:"token"`
+		Asd   Ceva   `json:"data"`
+	}
+
+	var query Query
+	if err = json.Unmarshal(body, &query); err != nil {
+		fmt.Println(err)
+		respondWithError(err, http.StatusBadRequest, res)
+		return
+	}
+
+	dbg.ConsoleLog(query)
+}
 
 func respondWithError(err error, statusCode int, response http.ResponseWriter) {
 	dbg.ConsoleLog(err)
@@ -27,18 +55,40 @@ func respondWithError(err error, statusCode int, response http.ResponseWriter) {
 	}
 }
 
-func (s *Server) authWrapper(f func(w http.ResponseWriter, r *http.Request)) func(w http.ResponseWriter, r *http.Request) {
-	return func(w http.ResponseWriter, r *http.Request) {
-		w.Header().Set("Access-Control-Allow-Origin", "*")
-		w.Header().Set("Content-Type", "application/json")
+func (s *Server) authWrapper(f func(res http.ResponseWriter, req *http.Request)) func(res http.ResponseWriter, req *http.Request) {
+	return func(res http.ResponseWriter, req *http.Request) {
+		res.Header().Set("Access-Control-Allow-Origin", "*")
+		res.Header().Set("Content-Type", "application/json")
 
-		f(w, r)
+		body, err := ioutil.ReadAll(req.Body)
+		if err != nil {
+			respondWithError(err, http.StatusInternalServerError, res)
+			return
+		}
+
+		type Query struct {
+			Token string `json:"token"`
+		}
+
+		var query Query
+		if err = json.Unmarshal(body, &query); err != nil {
+			respondWithError(err, http.StatusBadRequest, res)
+			return
+		}
+
+		req.Body.Close()
+		req.Body = ioutil.NopCloser(bytes.NewBuffer(body))
+
+		f(res, req)
 		return
 	}
 }
 
 func (s *Server) Register(res http.ResponseWriter, req *http.Request) {
 	defer dbg.MonitorFunc("api register")()
+
+	res.Header().Set("Access-Control-Allow-Origin", "*")
+	res.Header().Set("Content-Type", "application/json")
 
 	body, err := ioutil.ReadAll(req.Body)
 	if err != nil {
@@ -68,6 +118,9 @@ func (s *Server) Register(res http.ResponseWriter, req *http.Request) {
 
 func (s *Server) Login(res http.ResponseWriter, req *http.Request) {
 	defer dbg.MonitorFunc("api login")()
+
+	res.Header().Set("Access-Control-Allow-Origin", "*")
+	res.Header().Set("Content-Type", "application/json")
 
 	body, err := ioutil.ReadAll(req.Body)
 	if err != nil {
