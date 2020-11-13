@@ -64,11 +64,11 @@ func (mc *MongoClient) InsertSession(email string) (*Session, error) {
 	token := uuid.New().String()
 
 	session := Session{
-		Id: primitive.NewObjectID(),
+		Id:        primitive.NewObjectID(),
 		Token:     token,
 		Email:     user.Email,
 		CreatedAt: time.Now(),
-		Type: user.Type,
+		Type:      user.Type,
 	}
 
 	if err := mc.ClearSession(email); err != nil {
