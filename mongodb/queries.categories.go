@@ -7,7 +7,7 @@ import (
 	"time"
 )
 
-func (mc *MongoClient) GetCategories(workspaceId primitive.ObjectID) ([]*Category, error) {
+func (mc *MongoClient) GetCategories(workspaceId string) ([]*Category, error) {
 	ctx, _ := context.WithTimeout(context.Background(), 20*time.Second)
 	collection := mc.Client.Database(MyDb.DbName).Collection(MyDb.Categories)
 
@@ -35,7 +35,7 @@ func (mc *MongoClient) InsertCategory(cat *Category) error {
 	ctx, _ := context.WithTimeout(context.Background(), 20*time.Second)
 	collection := mc.Client.Database(MyDb.DbName).Collection(MyDb.Categories)
 
-	cat.Id = primitive.NewObjectID()
+	cat.Id = primitive.NewObjectID().String()
 
 	if _, err := collection.InsertOne(ctx, cat); err != nil {
 		return err

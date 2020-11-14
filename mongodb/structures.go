@@ -1,7 +1,6 @@
 package mongodb
 
 import (
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"time"
 )
 
@@ -29,52 +28,52 @@ const (
 )
 
 type UserAuth struct {
-	Id       primitive.ObjectID `json:"_id" bson:"_id"`
-	Email    string             `json:"email" bson:"email"`
-	Password string             `json:"password" bson:"password"`
-	Type     UserType           `json:"user_type" bson:"user_type"`
+	Id       string   `json:"_id" bson:"_id"`
+	Email    string   `json:"email" bson:"email"`
+	Password string   `json:"password" bson:"password"`
+	Type     UserType `json:"user_type" bson:"user_type"`
 }
 
 type Session struct {
-	Id        primitive.ObjectID `json:"_id" bson:"_id"`
-	Token     string             `json:"token" bson:"token"`
-	Email     string             `json:"email" bson:"email"`
-	Type      UserType           `json:"user_type" bson:"user_type"`
-	CreatedAt time.Time          `json:"created_at" bson:"created_at"`
+	Id        string    `json:"_id" bson:"_id"`
+	Token     string    `json:"token" bson:"token"`
+	Email     string    `json:"email" bson:"email"`
+	Type      UserType  `json:"user_type" bson:"user_type"`
+	CreatedAt time.Time `json:"created_at" bson:"created_at"`
 }
 
 type Workspace struct {
-	Id            primitive.ObjectID `json:"_id" bson:"_id"`
-	ImageUrl      string             `json:"url" bson:"url"`
-	Name          string             `json:"name" bson:"name"`
-	WorkspaceType WorkspaceType      `json:"type" bson:"type"`
+	Id            string        `json:"_id" bson:"_id"`
+	ImageUrl      string        `json:"url" bson:"url"`
+	Name          string        `json:"name" bson:"name"`
+	WorkspaceType WorkspaceType `json:"type" bson:"type"`
 }
 
 type Category struct {
-	Id          primitive.ObjectID `json:"_id" bson:"_id"`
-	ImageUrl    string             `json:"url" bson:"url"`
-	WorkspaceId primitive.ObjectID `json:"workspace_id" bson:"workspace_id"`
-	Name        string             `json:"name" bson:"name"`
+	Id          string `json:"_id" bson:"_id"`
+	ImageUrl    string `json:"url" bson:"url"`
+	WorkspaceId string `json:"workspace_id" bson:"workspace_id"`
+	Name        string `json:"name" bson:"name"`
 }
 
 type Course struct {
-	Id         primitive.ObjectID   `json:"_id" bson:"_id"`
-	Name       string               `json:"name" bson:"name"`
-	ImageUrl   string               `json:"url" bson:"url"`
-	CategoryId primitive.ObjectID   `json:"cat_id" bson:"cat_id"`
-	TeacherId  primitive.ObjectID   `json:"teacher_id" bson:"teacher_id"`
-	Duration   int32                `json:"duration" bson:"duration"`
-	Difficulty int32                `json:"difficulty" bson:"difficulty"`
-	Lessons    []*Lesson            `json:"lessons" bson:"lessons"`
-	Students   []primitive.ObjectID `json:"students" bson:"students"`
-	Reviews    []*Review            `json:"reviews" bson:"reviews"`
+	Id         string    `json:"_id" bson:"_id"`
+	Name       string    `json:"name" bson:"name"`
+	ImageUrl   string    `json:"url" bson:"url"`
+	CategoryId string    `json:"cat_id" bson:"cat_id"`
+	TeacherId  string    `json:"teacher_id" bson:"teacher_id"`
+	Duration   int32     `json:"duration" bson:"duration"`
+	Difficulty int32     `json:"difficulty" bson:"difficulty"`
+	Lessons    []*Lesson `json:"lessons" bson:"lessons"`
+	Students   []string  `json:"students" bson:"students"`
+	Reviews    []*Review `json:"reviews" bson:"reviews"`
 }
 
 type Lesson struct {
-	Id        primitive.ObjectID   `json:"_id" bson:"_id"`
-	Students  []primitive.ObjectID `json:"students" bson:"students"`
-	Video     Video                `json:"video" bson:"video"`
-	Materials []string             `json:"materials" bson:"materials"`
+	Id        string   `json:"_id" bson:"_id"`
+	Students  []string `json:"students" bson:"students"`
+	Video     Video    `json:"video" bson:"video"`
+	Materials []string `json:"materials" bson:"materials"`
 }
 
 type Video struct {
@@ -83,27 +82,27 @@ type Video struct {
 }
 
 type Student struct {
-	Id          primitive.ObjectID   `json:"_id" bson:"_id"`
-	Name        string               `json:"name" bson:"name"`
-	Courses     []primitive.ObjectID `json:"courses" bson:"courses"`
-	Assignments []primitive.ObjectID `json:"assignments" bson:"assignments"`
+	Id          string   `json:"_id" bson:"_id"`
+	Name        string   `json:"name" bson:"name"`
+	Courses     []string `json:"courses" bson:"courses"`
+	Assignments []string `json:"assignments" bson:"assignments"`
 }
 
 type Teacher struct {
-	Id      primitive.ObjectID   `json:"_id" bson:"_id"`
-	Name    string               `json:"name" bson:"name"`
-	Courses []primitive.ObjectID `json:"courses" bson:"courses"`
+	Id      string   `json:"_id" bson:"_id"`
+	Name    string   `json:"name" bson:"name"`
+	Courses []string `json:"courses" bson:"courses"`
 }
 
 type Assignment struct {
-	Id        primitive.ObjectID `json:"_id" bson:"_id"`
-	LessonId  primitive.ObjectID `json:"lesson_id" bson:"lesson_id"`
-	StudentId primitive.ObjectID `json:"student_id" bson:"student_id"`
-	Grade     int32              `json:"grade" bson:"grade"`
+	Id        string `json:"_id" bson:"_id"`
+	LessonId  string `json:"lesson_id" bson:"lesson_id"`
+	StudentId string `json:"student_id" bson:"student_id"`
+	Grade     int32  `json:"grade" bson:"grade"`
 }
 
 type Review struct {
-	StudentId primitive.ObjectID `json:"student_id" bson:"student_id"`
-	Rating    int32              `json:"rating" bson:"rating"`
-	Feedback  string             `json:"feedback"`
+	StudentId string `json:"student_id" bson:"student_id"`
+	Rating    int32  `json:"rating" bson:"rating"`
+	Feedback  string `json:"feedback"`
 }

@@ -4,7 +4,6 @@ import (
 	"e-learn/dbg"
 	"e-learn/mongodb"
 	"encoding/json"
-	"go.mongodb.org/mongo-driver/bson/primitive"
 	"io/ioutil"
 	"net/http"
 )
@@ -19,7 +18,7 @@ func (s *Server) GetCategories(res http.ResponseWriter, req *http.Request) {
 	}
 
 	type Query struct {
-		Data primitive.ObjectID `json:"data"`
+		Data string `json:"data"`
 	}
 
 	var query Query

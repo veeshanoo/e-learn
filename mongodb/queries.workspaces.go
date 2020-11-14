@@ -54,7 +54,7 @@ func (mc *MongoClient) InsertWorkspace(workspace *Workspace) error {
 	ctx, _ := context.WithTimeout(context.Background(), 20*time.Second)
 	collection := mc.Client.Database(MyDb.DbName).Collection(MyDb.Workspaces)
 
-	workspace.Id = primitive.NewObjectID()
+	workspace.Id = primitive.NewObjectID().String()
 
 	if _, err := collection.InsertOne(ctx, workspace); err != nil {
 		return err

@@ -47,7 +47,7 @@ func (mc *MongoClient) InsertNewUser(user *UserAuth) (*Session, error) {
 		user.Password = hashedPwd
 	}
 
-	user.Id = primitive.NewObjectID()
+	user.Id = primitive.NewObjectID().String()
 	if _, err := collection.InsertOne(ctx, user); err != nil {
 		return nil, err
 	}
@@ -64,7 +64,7 @@ func (mc *MongoClient) InsertSession(email string) (*Session, error) {
 	token := uuid.New().String()
 
 	session := Session{
-		Id:        primitive.NewObjectID(),
+		Id:        primitive.NewObjectID().String(),
 		Token:     token,
 		Email:     user.Email,
 		CreatedAt: time.Now(),
