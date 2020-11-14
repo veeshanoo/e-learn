@@ -1,12 +1,9 @@
 package main
 
-import (
-	"fmt"
-	"go.mongodb.org/mongo-driver/bson/primitive"
-)
-
 func main() {
-	uuid := primitive.NewObjectID()
-	fmt.Println(uuid)
-	fmt.Println(uuid.String())
+	//var e []string
+	//e = append(e, "asd")
+	//fmt.Println(e)
+	//mongodb.AddStudent(&e, "asdasd")
+	//fmt.Println(e)
 }

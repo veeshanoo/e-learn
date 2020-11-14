@@ -157,3 +157,31 @@ func (s *Server) Login(res http.ResponseWriter, req *http.Request) {
 
 	return
 }
+
+func (s *Server) JoinCourse(res http.ResponseWriter, req *http.Request) {
+	defer dbg.MonitorFunc("api join course")()
+
+	body, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		respondWithError(err, http.StatusInternalServerError, res)
+		return
+	}
+
+	type Query struct {
+		Token    string `json:"token" bson:"token"`
+		CourseId string `json:"data"`
+	}
+
+	var query Query
+	if err = json.Unmarshal(body, &query); err != nil {
+		respondWithError(err, http.StatusBadRequest, res)
+		return
+	}
+
+	if err := s.MongoClient.JoinCourse(query.CourseId, query.Token); err != nil {
+		respondWithError(err, http.StatusBadRequest, res)
+		return
+	}
+
+	return
+}

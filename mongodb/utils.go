@@ -15,3 +15,19 @@ func hashAndSalt(pwd string) (string, error) {
 func comparePasswords(hash, pwd string) error {
 	return bcrypt.CompareHashAndPassword([]byte(hash), []byte(pwd))
 }
+
+func addStudent(list *[]string, student string) {
+	f := false
+	for _, s := range *list {
+		if s == student {
+			f = true
+			break
+		}
+	}
+
+	if f {
+		return
+	}
+
+	*list = append(*list, student)
+}

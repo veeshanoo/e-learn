@@ -1,0 +1,30 @@
+package mongodb
+
+import (
+	"context"
+	"go.mongodb.org/mongo-driver/bson"
+	"time"
+)
+
+func (mc *MongoClient) GetStudent(filter bson.M) (*Student, error) {
+	ctx, _ := context.WithTimeout(context.Background(), 20*time.Second)
+	collection := mc.Client.Database(MyDb.DbName).Collection(MyDb.Students)
+
+	student := &Student{}
+	if err := collection.FindOne(ctx, filter).Decode(student); err != nil {
+		return nil, err
+	}
+
+	return student, nil
+}
+
+func (mc *MongoClient) InsertStudent(student *Student) error {
+	ctx, _ := context.WithTimeout(context.Background(), 20*time.Second)
+	collection := mc.Client.Database(MyDb.DbName).Collection(MyDb.Students)
+
+	if _, err := collection.InsertOne(ctx, student); err != nil {
+		return err
+	}
+
+	return nil
+}

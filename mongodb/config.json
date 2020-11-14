@@ -5,5 +5,7 @@
   "sessions": "sessions",
   "workspaces": "workspaces",
   "categories": "categories",
-  "courses": "courses"
+  "courses": "courses",
+  "students": "students",
+  "teachers": "teachers"
 }

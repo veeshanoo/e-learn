@@ -6,6 +6,7 @@ import (
 	"github.com/google/uuid"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
 	"time"
 )
 
@@ -104,6 +105,47 @@ func (mc *MongoClient) ClearSession(email string) error {
 
 	filter := bson.M{"email": email}
 	if _, err := collection.DeleteMany(ctx, filter); err != nil {
+		return err
+	}
+
+	return nil
+}
+
+func (mc *MongoClient) AddCourse(email string, userType UserType, courseId string) error {
+	if _, err := mc.GetCourse(courseId); err != nil {
+		return err
+	}
+
+	ctx, _ := context.WithTimeout(context.Background(), 20*time.Second)
+	collection := &mongo.Collection{}
+
+	var courses []string
+	if userType == UserType_Student {
+		collection = mc.Client.Database(MyDb.DbName).Collection(MyDb.Students)
+
+		student, err := mc.GetStudent(bson.M{"email": email})
+		if err != nil {
+			return err
+		}
+
+		courses = student.Courses
+	} else {
+		collection = mc.Client.Database(MyDb.DbName).Collection(MyDb.Teachers)
+
+		teacher, err := mc.GetTeacher(bson.M{"email": email})
+		if err != nil {
+			return err
+		}
+
+		courses = teacher.Courses
+	}
+
+	addStudent(&courses, courseId)
+
+	filter := bson.M{"email": email}
+	update := bson.M{"$set": bson.M{"courses": courses}}
+
+	if _, err := collection.UpdateOne(ctx, filter, update); err != nil {
 		return err
 	}
 

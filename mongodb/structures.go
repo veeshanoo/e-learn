@@ -12,6 +12,8 @@ type MongoDb struct {
 	Workspaces string `json:"workspaces"`
 	Categories string `json:"categories"`
 	Courses    string `json:"courses"`
+	Students   string `json:"students"`
+	Teachers   string `json:"teachers"`
 }
 
 type UserType int
@@ -67,6 +69,7 @@ type Course struct {
 	Difficulty  int32     `json:"difficulty" bson:"difficulty"`
 	Lessons     []*Lesson `json:"lessons" bson:"lessons"`
 	Students    []string  `json:"students" bson:"students"`
+	Teachers    []string  `json:"teachers" bson:"teachers"`
 	Reviews     []*Review `json:"reviews" bson:"reviews"`
 }
 
@@ -85,6 +88,7 @@ type Video struct {
 type Student struct {
 	Id          string   `json:"_id" bson:"_id"`
 	Name        string   `json:"name" bson:"name"`
+	Email       string   `json:"email"`
 	Courses     []string `json:"courses" bson:"courses"`
 	Assignments []string `json:"assignments" bson:"assignments"`
 }
@@ -92,6 +96,7 @@ type Student struct {
 type Teacher struct {
 	Id      string   `json:"_id" bson:"_id"`
 	Name    string   `json:"name" bson:"name"`
+	Email   string   `json:"email"`
 	Courses []string `json:"courses" bson:"courses"`
 }
 
