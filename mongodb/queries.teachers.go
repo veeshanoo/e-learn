@@ -24,6 +24,12 @@ func (mc *MongoClient) InsertTeacher(teacher *Teacher) error {
 	ctx, _ := context.WithTimeout(context.Background(), 20*time.Second)
 	collection := mc.Client.Database(MyDb.DbName).Collection(MyDb.Teachers)
 
+	user, err := mc.GetUser(teacher.Email, "", false)
+	if err != nil {
+		return err
+	}
+
+	teacher.Id = user.Id
 	if _, err := collection.InsertOne(ctx, teacher); err != nil {
 		return err
 	}

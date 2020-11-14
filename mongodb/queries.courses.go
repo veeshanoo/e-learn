@@ -93,7 +93,7 @@ func (mc *MongoClient) JoinCourse(courseId string, token string) error {
 		addStudent(&course.Teachers, user.Id)
 	}
 
-	if _, err := collection.UpdateOne(ctx, filter, course); err != nil {
+	if _, err := collection.UpdateOne(ctx, filter, bson.M{"$set": course}); err != nil {
 		return err
 	}
 
