@@ -8,5 +8,6 @@
   "courses": "courses",
   "students": "students",
   "teachers": "teachers",
-  "lessons": "lessons"
+  "lessons": "lessons",
+  "assignments": "assignments"
 }

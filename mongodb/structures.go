@@ -5,16 +5,17 @@ import (
 )
 
 type MongoDb struct {
-	Url        string `json:"url"`
-	DbName     string `json:"name"`
-	Users      string `json:"users"`
-	Sessions   string `json:"sessions"`
-	Workspaces string `json:"workspaces"`
-	Categories string `json:"categories"`
-	Courses    string `json:"courses"`
-	Students   string `json:"students"`
-	Teachers   string `json:"teachers"`
-	Lessons    string `json:"lessons"`
+	Url         string `json:"url"`
+	DbName      string `json:"name"`
+	Users       string `json:"users"`
+	Sessions    string `json:"sessions"`
+	Workspaces  string `json:"workspaces"`
+	Categories  string `json:"categories"`
+	Courses     string `json:"courses"`
+	Students    string `json:"students"`
+	Teachers    string `json:"teachers"`
+	Lessons     string `json:"lessons"`
+	Assignments string `json:"assignments"`
 }
 
 type UserType int
