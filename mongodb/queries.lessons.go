@@ -160,12 +160,16 @@ func (mc *MongoClient) GetSrtLink(link string) (string, error) {
 		return "", err
 	}
 
-	id := ""
-	if err := json.Unmarshal(resBody, &id); err != nil {
+	type Response struct {
+		Data string `json:"data"`
+	}
+
+	response := Response{}
+	if err := json.Unmarshal(resBody, &response); err != nil {
 		return "", err
 	}
 
-	return id, nil
+	return response.Data, nil
 }
 
 func (mc *MongoClient) GetSrt(id string) (string, error) {
@@ -188,10 +192,14 @@ func (mc *MongoClient) GetSrt(id string) (string, error) {
 		return "", err
 	}
 
-	srt := ""
-	if err := json.Unmarshal(resBody, &srt); err != nil {
+	type Response struct {
+		Data string `json:"data"`
+	}
+
+	response := Response{}
+	if err := json.Unmarshal(resBody, &response); err != nil {
 		return "", err
 	}
 
-	return srt, nil
+	return response.Data, nil
 }
