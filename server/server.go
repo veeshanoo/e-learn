@@ -89,6 +89,11 @@ func (s *Server) BuildHandlers() {
 	s.Router.HandleFunc("/categories/insert", s.authWrapper(s.InsertCategory)).Methods("POST")
 	s.Router.HandleFunc("/courses/get", s.authWrapper(s.GetCourses)).Methods("POST")
 	s.Router.HandleFunc("/courses/insert", s.authWrapper(s.InsertCourse)).Methods("POST")
+	s.Router.HandleFunc("/courses/join", s.authWrapper(s.JoinCourse)).Methods("POST")
+	s.Router.HandleFunc("/students/get", s.authWrapper(s.GetStudent)).Methods("POST")
+	s.Router.HandleFunc("/students/insert", s.authWrapper(s.InsertStudent)).Methods("POST")
+	s.Router.HandleFunc("/teachers/get", s.authWrapper(s.GetTeacher)).Methods("POST")
+	s.Router.HandleFunc("/teachers/insert", s.authWrapper(s.InsertTeacher)).Methods("POST")
 }
 
 func (s *Server) Run() {

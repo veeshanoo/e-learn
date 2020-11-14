@@ -3,6 +3,7 @@ package mongodb
 import (
 	"context"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"time"
 )
 
@@ -11,6 +12,7 @@ func (mc *MongoClient) GetStudent(filter bson.M) (*Student, error) {
 	collection := mc.Client.Database(MyDb.DbName).Collection(MyDb.Students)
 
 	student := &Student{}
+	student.Id = primitive.NewObjectID().Hex()
 	if err := collection.FindOne(ctx, filter).Decode(student); err != nil {
 		return nil, err
 	}

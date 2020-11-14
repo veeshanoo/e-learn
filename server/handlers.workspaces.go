@@ -11,13 +11,20 @@ import (
 func (s *Server) GetWorkspaces(res http.ResponseWriter, req *http.Request) {
 	defer dbg.MonitorFunc("api get workspaces")()
 
-	categories, err := s.MongoClient.GetWorkspaces()
+	workspaces, err := s.MongoClient.GetWorkspaces()
 	if err != nil {
 		respondWithError(err, http.StatusBadRequest, res)
 		return
 	}
 
-	if err = json.NewEncoder(res).Encode(categories); err != nil {
+	type Response struct {
+		Data []*mongodb.Workspace `json:"data"`
+	}
+	response := Response{
+		Data: workspaces,
+	}
+
+	if err = json.NewEncoder(res).Encode(response); err != nil {
 		respondWithError(err, http.StatusInternalServerError, res)
 		return
 	}

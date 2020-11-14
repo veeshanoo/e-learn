@@ -168,7 +168,7 @@ func (s *Server) JoinCourse(res http.ResponseWriter, req *http.Request) {
 	}
 
 	type Query struct {
-		Token    string `json:"token" bson:"token"`
+		Token    string `json:"token"`
 		CourseId string `json:"data"`
 	}
 

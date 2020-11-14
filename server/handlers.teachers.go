@@ -4,12 +4,13 @@ import (
 	"e-learn/dbg"
 	"e-learn/mongodb"
 	"encoding/json"
+	"go.mongodb.org/mongo-driver/bson"
 	"io/ioutil"
 	"net/http"
 )
 
-func (s *Server) GetCourses(res http.ResponseWriter, req *http.Request) {
-	defer dbg.MonitorFunc("api get courses")()
+func (s *Server) GetTeacher(res http.ResponseWriter, req *http.Request) {
+	defer dbg.MonitorFunc("api get teacher")()
 
 	body, err := ioutil.ReadAll(req.Body)
 	if err != nil {
@@ -18,10 +19,7 @@ func (s *Server) GetCourses(res http.ResponseWriter, req *http.Request) {
 	}
 
 	type Query struct {
-		Data struct {
-			WorkspaceId string `json:"workspace_id"`
-			CategoryId  string `json:"cat_id"`
-		} `json:"data"`
+		Data string `json:"data"`
 	}
 
 	var query Query
@@ -30,20 +28,13 @@ func (s *Server) GetCourses(res http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	courses, err := s.MongoClient.GetCourses(query.Data.WorkspaceId, query.Data.CategoryId)
+	teacher, err := s.MongoClient.GetTeacher(bson.M{"email": query.Data})
 	if err != nil {
 		respondWithError(err, http.StatusBadRequest, res)
 		return
 	}
 
-	type Response struct {
-		Data []*mongodb.Course `json:"data"`
-	}
-	response := Response{
-		Data: courses,
-	}
-
-	if err = json.NewEncoder(res).Encode(response); err != nil {
+	if err = json.NewEncoder(res).Encode(teacher); err != nil {
 		respondWithError(err, http.StatusInternalServerError, res)
 		return
 	}
@@ -51,8 +42,8 @@ func (s *Server) GetCourses(res http.ResponseWriter, req *http.Request) {
 	return
 }
 
-func (s *Server) InsertCourse(res http.ResponseWriter, req *http.Request) {
-	defer dbg.MonitorFunc("api insert course")()
+func (s *Server) InsertTeacher(res http.ResponseWriter, req *http.Request) {
+	defer dbg.MonitorFunc("api insert teacher")()
 
 	body, err := ioutil.ReadAll(req.Body)
 	if err != nil {
@@ -61,7 +52,7 @@ func (s *Server) InsertCourse(res http.ResponseWriter, req *http.Request) {
 	}
 
 	type Query struct {
-		Data *mongodb.Course `json:"data"`
+		Data *mongodb.Teacher `json:"data"`
 	}
 
 	var query Query
@@ -70,7 +61,7 @@ func (s *Server) InsertCourse(res http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	if err := s.MongoClient.InsertCourse(query.Data); err != nil {
+	if err := s.MongoClient.InsertTeacher(query.Data); err != nil {
 		respondWithError(err, http.StatusBadRequest, res)
 		return
 	}

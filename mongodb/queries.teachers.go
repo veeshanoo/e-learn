@@ -3,6 +3,7 @@ package mongodb
 import (
 	"context"
 	"go.mongodb.org/mongo-driver/bson"
+	"go.mongodb.org/mongo-driver/bson/primitive"
 	"time"
 )
 
@@ -11,6 +12,7 @@ func (mc *MongoClient) GetTeacher(filter bson.M) (*Teacher, error) {
 	collection := mc.Client.Database(MyDb.DbName).Collection(MyDb.Teachers)
 
 	teacher := &Teacher{}
+	teacher.Id = primitive.NewObjectID().Hex()
 	if err := collection.FindOne(ctx, filter).Decode(teacher); err != nil {
 		return nil, err
 	}

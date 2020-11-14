@@ -33,7 +33,14 @@ func (s *Server) GetCategories(res http.ResponseWriter, req *http.Request) {
 		return
 	}
 
-	if err = json.NewEncoder(res).Encode(categories); err != nil {
+	type Response struct {
+		Data []*mongodb.Category `json:"data"`
+	}
+	response := Response{
+		Data: categories,
+	}
+
+	if err = json.NewEncoder(res).Encode(response); err != nil {
 		respondWithError(err, http.StatusInternalServerError, res)
 		return
 	}
