@@ -95,6 +95,9 @@ func (s *Server) BuildHandlers() {
 	s.Router.HandleFunc("/students/insert", s.authWrapper(s.InsertStudent)).Methods("POST")
 	s.Router.HandleFunc("/teachers/get", s.authWrapper(s.GetTeacher)).Methods("POST")
 	s.Router.HandleFunc("/teachers/insert", s.authWrapper(s.InsertTeacher)).Methods("POST")
+	s.Router.HandleFunc("/srt/gen", s.authWrapper(s.GenerateSrt)).Methods("POST")
+	s.Router.HandleFunc("/srt/get", s.authWrapper(s.GetSrt)).Methods("POST")
+	s.Router.HandleFunc("/lessons/insert", s.authWrapper(s.InsertLesson)).Methods("POST")
 }
 
 func (s *Server) Run() {

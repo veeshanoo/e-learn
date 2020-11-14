@@ -15,7 +15,7 @@ import (
 
 func (mc *MongoClient) InsertLesson(lesson *Lesson, courseId string) error {
 	ctx, _ := context.WithTimeout(context.Background(), 20*time.Second)
-	collection := mc.Client.Database(MyDb.DbName).Collection(MyDb.Lessons)
+	collection := mc.Client.Database(MyDb.DbName).Collection(MyDb.Courses)
 
 	course, err := mc.GetCourse(courseId)
 	if err != nil {
@@ -37,7 +37,7 @@ func (mc *MongoClient) InsertLesson(lesson *Lesson, courseId string) error {
 
 func (mc *MongoClient) UpdateLesson(courseId, lessonId string, video *Video) error {
 	ctx, _ := context.WithTimeout(context.Background(), 20*time.Second)
-	collection := mc.Client.Database(MyDb.DbName).Collection(MyDb.Lessons)
+	collection := mc.Client.Database(MyDb.DbName).Collection(MyDb.Courses)
 
 	course, err := mc.GetCourse(courseId)
 	if err != nil {
@@ -131,7 +131,7 @@ func (mc *MongoClient) GetVideoWithSrt(courseId, lessonId string) (*Video, error
 		}
 	}
 
-	srt, err := mc.getSrt(video.Subtitles)
+	srt, err := mc.GetSrt(video.Subtitles)
 	if err != nil {
 		return nil, err
 	}
@@ -140,7 +140,7 @@ func (mc *MongoClient) GetVideoWithSrt(courseId, lessonId string) (*Video, error
 	return video, nil
 }
 
-func (mc *MongoClient) getSrtLink(link string) (string, error) {
+func (mc *MongoClient) GetSrtLink(link string) (string, error) {
 	type Query struct {
 		Url string `json:"url"`
 	}
@@ -168,7 +168,7 @@ func (mc *MongoClient) getSrtLink(link string) (string, error) {
 	return id, nil
 }
 
-func (mc *MongoClient) getSrt(id string) (string, error) {
+func (mc *MongoClient) GetSrt(id string) (string, error) {
 	type Query struct {
 		Id string `json:"id"`
 	}
