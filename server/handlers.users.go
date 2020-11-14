@@ -185,3 +185,49 @@ func (s *Server) JoinCourse(res http.ResponseWriter, req *http.Request) {
 
 	return
 }
+
+func (s *Server) GetCoursesForUser(res http.ResponseWriter, req *http.Request) {
+	defer dbg.MonitorFunc("api get courses for user")()
+
+	body, err := ioutil.ReadAll(req.Body)
+	if err != nil {
+		respondWithError(err, http.StatusInternalServerError, res)
+		return
+	}
+
+	type Query struct {
+		Token string `json:"token"`
+	}
+
+	var query Query
+	if err = json.Unmarshal(body, &query); err != nil {
+		respondWithError(err, http.StatusBadRequest, res)
+		return
+	}
+
+	session, err := s.MongoClient.GetSession(query.Token)
+	if err != nil {
+		respondWithError(err, http.StatusBadRequest, res)
+		return
+	}
+
+	courses, err := s.MongoClient.GetCoursesForUser(session.Email, session.Type)
+	if err != nil {
+		respondWithError(err, http.StatusBadRequest, res)
+		return
+	}
+
+	type Response struct {
+		Data []*mongodb.Course `json:"data"`
+	}
+	response := Response{
+		Data: courses,
+	}
+
+	if err = json.NewEncoder(res).Encode(response); err != nil {
+		respondWithError(err, http.StatusInternalServerError, res)
+		return
+	}
+
+	return
+}

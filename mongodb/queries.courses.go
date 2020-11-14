@@ -103,3 +103,32 @@ func (mc *MongoClient) JoinCourse(courseId string, token string) error {
 
 	return nil
 }
+
+func (mc *MongoClient) GetCoursesForUser(email string, userType UserType) ([]*Course, error) {
+	var courses []string
+	if userType == UserType_Student {
+		student, err := mc.GetStudent(bson.M{"email": email})
+		if err != nil {
+			return nil, err
+		}
+		courses = student.Courses
+	} else {
+		teacher, err := mc.GetTeacher(bson.M{"email": email})
+		if err != nil {
+			return nil, err
+		}
+		courses = teacher.Courses
+	}
+
+	var crs []*Course
+	for _, el := range courses {
+		course, err := mc.GetCourse(el)
+		if err != nil {
+			return nil, err
+		}
+
+		crs = append(crs, course)
+	}
+
+	return crs, nil
+}
