@@ -98,6 +98,7 @@ func (s *Server) BuildHandlers() {
 	s.Router.HandleFunc("/srt/gen", s.authWrapper(s.GenerateSrt)).Methods("POST")
 	s.Router.HandleFunc("/srt/get", s.authWrapper(s.GetSrt)).Methods("POST")
 	s.Router.HandleFunc("/lessons/insert", s.authWrapper(s.InsertLesson)).Methods("POST")
+	s.Router.HandleFunc("/reviews/add", s.authWrapper(s.AddReview)).Methods("POST")
 }
 
 func (s *Server) Run() {

@@ -110,6 +110,7 @@ type Assignment struct {
 
 type Review struct {
 	StudentId string `json:"student_id" bson:"student_id"`
+	Name      string `json:"name" bson:"name"`
 	Rating    int32  `json:"rating" bson:"rating"`
 	Feedback  string `json:"feedback"`
 }
