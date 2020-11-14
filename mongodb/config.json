@@ -7,5 +7,6 @@
   "categories": "categories",
   "courses": "courses",
   "students": "students",
-  "teachers": "teachers"
+  "teachers": "teachers",
+  "lessons": "lessons"
 }

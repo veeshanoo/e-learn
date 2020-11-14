@@ -14,6 +14,7 @@ type MongoDb struct {
 	Courses    string `json:"courses"`
 	Students   string `json:"students"`
 	Teachers   string `json:"teachers"`
+	Lessons    string `json:"lessons"`
 }
 
 type UserType int
@@ -76,7 +77,7 @@ type Course struct {
 type Lesson struct {
 	Id        string   `json:"_id" bson:"_id"`
 	Students  []string `json:"students" bson:"students"`
-	Video     Video    `json:"video" bson:"video"`
+	Video     *Video   `json:"video" bson:"video"`
 	Materials []string `json:"materials" bson:"materials"`
 }
 
