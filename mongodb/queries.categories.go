@@ -4,6 +4,7 @@ import (
 	"context"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
 	"time"
 )
 
@@ -15,7 +16,11 @@ func (mc *MongoClient) GetCategories(workspaceId string) ([]*Category, error) {
 
 	iter, err := collection.Find(ctx, filter)
 	if err != nil {
-		return nil, err
+		if err == mongo.ErrNoDocuments {
+			return nil, nil
+		} else {
+			return nil, err
+		}
 	}
 
 	var categories []*Category
@@ -35,7 +40,7 @@ func (mc *MongoClient) InsertCategory(cat *Category) error {
 	ctx, _ := context.WithTimeout(context.Background(), 20*time.Second)
 	collection := mc.Client.Database(MyDb.DbName).Collection(MyDb.Categories)
 
-	cat.Id = primitive.NewObjectID().String()
+	cat.Id = primitive.NewObjectID().Hex()
 
 	if _, err := collection.InsertOne(ctx, cat); err != nil {
 		return err

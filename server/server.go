@@ -87,7 +87,8 @@ func (s *Server) BuildHandlers() {
 	s.Router.HandleFunc("/workspaces/insert", s.authWrapper(s.InsertWorkspace)).Methods("POST")
 	s.Router.HandleFunc("/categories/get", s.authWrapper(s.GetCategories)).Methods("POST")
 	s.Router.HandleFunc("/categories/insert", s.authWrapper(s.InsertCategory)).Methods("POST")
-	s.Router.HandleFunc("/courses", nil).Methods("GET")
+	s.Router.HandleFunc("/courses/get", s.authWrapper(s.GetCourses)).Methods("POST")
+	s.Router.HandleFunc("/courses/insert", s.authWrapper(s.InsertCourse)).Methods("POST")
 }
 
 func (s *Server) Run() {

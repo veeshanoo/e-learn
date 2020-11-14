@@ -57,16 +57,17 @@ type Category struct {
 }
 
 type Course struct {
-	Id         string    `json:"_id" bson:"_id"`
-	Name       string    `json:"name" bson:"name"`
-	ImageUrl   string    `json:"url" bson:"url"`
-	CategoryId string    `json:"cat_id" bson:"cat_id"`
-	TeacherId  string    `json:"teacher_id" bson:"teacher_id"`
-	Duration   int32     `json:"duration" bson:"duration"`
-	Difficulty int32     `json:"difficulty" bson:"difficulty"`
-	Lessons    []*Lesson `json:"lessons" bson:"lessons"`
-	Students   []string  `json:"students" bson:"students"`
-	Reviews    []*Review `json:"reviews" bson:"reviews"`
+	Id          string    `json:"_id" bson:"_id"`
+	Name        string    `json:"name" bson:"name"`
+	ImageUrl    string    `json:"url" bson:"url"`
+	WorkspaceId string    `json:"workspace_id" bson:"workspace_id"`
+	CategoryId  string    `json:"cat_id" bson:"cat_id"`
+	TeacherId   string    `json:"teacher_id" bson:"teacher_id"`
+	Duration    int32     `json:"duration" bson:"duration"`
+	Difficulty  int32     `json:"difficulty" bson:"difficulty"`
+	Lessons     []*Lesson `json:"lessons" bson:"lessons"`
+	Students    []string  `json:"students" bson:"students"`
+	Reviews     []*Review `json:"reviews" bson:"reviews"`
 }
 
 type Lesson struct {

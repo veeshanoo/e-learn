@@ -5,6 +5,7 @@ import (
 	"errors"
 	"go.mongodb.org/mongo-driver/bson"
 	"go.mongodb.org/mongo-driver/bson/primitive"
+	"go.mongodb.org/mongo-driver/mongo"
 	"time"
 )
 
@@ -30,7 +31,11 @@ func (mc *MongoClient) GetWorkspaces() ([]*Workspace, error) {
 
 	iter, err := collection.Find(ctx, filter)
 	if err != nil {
-		return nil, err
+		if err == mongo.ErrNoDocuments {
+			return nil, nil
+		} else {
+			return nil, err
+		}
 	}
 
 	var workspaces []*Workspace
@@ -54,7 +59,7 @@ func (mc *MongoClient) InsertWorkspace(workspace *Workspace) error {
 	ctx, _ := context.WithTimeout(context.Background(), 20*time.Second)
 	collection := mc.Client.Database(MyDb.DbName).Collection(MyDb.Workspaces)
 
-	workspace.Id = primitive.NewObjectID().String()
+	workspace.Id = primitive.NewObjectID().Hex()
 
 	if _, err := collection.InsertOne(ctx, workspace); err != nil {
 		return err

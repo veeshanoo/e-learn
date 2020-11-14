@@ -39,7 +39,7 @@ func (s *Server) InsertWorkspace(res http.ResponseWriter, req *http.Request) {
 	}
 
 	var query Query
-	if err = json.Unmarshal(body, &query.Data); err != nil {
+	if err = json.Unmarshal(body, &query); err != nil {
 		respondWithError(err, http.StatusBadRequest, res)
 		return
 	}
