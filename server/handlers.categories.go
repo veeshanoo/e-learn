@@ -28,6 +28,7 @@ func (s *Server) GetCategories(res http.ResponseWriter, req *http.Request) {
 	}
 
 	categories, err := s.MongoClient.GetCategories(query.Data)
+	dbg.ConsoleLog(categories)
 	if err != nil {
 		respondWithError(err, http.StatusBadRequest, res)
 		return

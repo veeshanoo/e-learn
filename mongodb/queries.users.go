@@ -72,9 +72,9 @@ func (mc *MongoClient) InsertSession(email string) (*Session, error) {
 		Type:      user.Type,
 	}
 
-	if err := mc.ClearSession(email); err != nil {
-		return nil, err
-	}
+	//if err := mc.ClearSession(email); err != nil {
+	//	return nil, err
+	//}
 
 	ctx, _ := context.WithTimeout(context.Background(), 20*time.Second)
 	collection := mc.Client.Database(MyDb.DbName).Collection(MyDb.Sessions)

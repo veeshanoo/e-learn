@@ -31,6 +31,7 @@ func (s *Server) GetCourses(res http.ResponseWriter, req *http.Request) {
 	}
 
 	courses, err := s.MongoClient.GetCourses(query.Data.WorkspaceId, query.Data.CategoryId)
+	dbg.ConsoleLog(courses)
 	if err != nil {
 		respondWithError(err, http.StatusBadRequest, res)
 		return

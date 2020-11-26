@@ -18,7 +18,7 @@ type MongoClient struct {
 }
 
 var DefaultDbConfig = MongoDb{
-	Url:    "mongodb+srv://go-server:DfQ7i-hj9pnWD45@cluster0-r16y6.mongodb.net/test?retryWrites=true&w=majority",
+	Url:    "mongodb://mongodb:27017",
 	DbName: "e-learn",
 }
 

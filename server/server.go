@@ -116,6 +116,57 @@ func (s *Server) Run() {
 	}
 
 	s.BuildHandlers()
+	//
+	//var ids []string
+	//var names []string
+	//var course_ids []string
+	//var ratings []int
+	//var feedbacks []string
+
+	//ids = append(ids, "5faf24e46d91d1bdda7b7346")
+	//ids = append(ids, "5fafaf5bcdec8a9ac01877dd")
+	//ids = append(ids, "5fafaf6acdec8a9ac01877df")
+	//ids = append(ids, "5fafaf71cdec8a9ac01877e2")
+	//
+	//names = append(names, "Antonio Bandericescu")
+	//names = append(names, "Veaceslav Stanislav")
+	//names = append(names, "Marek Sokol")
+	//names = append(names, "Ionut Vasile")
+	//
+	//course_ids = append(course_ids, "5fafaa5f59d46a1c3ada1904")
+	//course_ids = append(course_ids, "5fafaa2359d46a1c3ada1903")
+	//course_ids = append(course_ids, "5fafa9d459d46a1c3ada1902")
+	//course_ids = append(course_ids, "5faf4e986fae12f8e0821378")
+	//course_ids = append(course_ids, "5faf4df16fae12f8e0821377")
+	//
+	//ratings = append(ratings, 5)
+	//ratings = append(ratings, 4)
+	//ratings = append(ratings, 4)
+	//ratings = append(ratings, 3)
+	//ratings = append(ratings, 5)
+	//
+	//feedbacks = append(feedbacks, "Un curs nemaipomenit.")
+	//feedbacks = append(feedbacks, "Acest curs mi-a schimbat viziunea asupra lumii.")
+	//feedbacks = append(feedbacks, "Recomand.")
+	//feedbacks = append(feedbacks, "A fost ok. Se putea si mai bine.")
+	//feedbacks = append(feedbacks, "Doamna Chimichiuri este o profesoara extraordinara.")
+	//
+	//for i := 0; i < 5; i++ {
+	//	for j := 0; j < 5; j++ {
+	//		for k := 0; k < 4; k++ {
+	//			review := &mongodb.Review{
+	//				Name:   names[k],
+	//				Rating: ratings[j],
+	//				Feedback: feedbacks[j],
+	//				StudentId: ids[k],
+	//			}
+	//
+	//			if err := s.MongoClient.AddReview(review, course_ids[i]); err != nil {
+	//				dbg.ConsoleLog("EROARE")
+	//			}
+	//		}
+	//	}
+	//}
 
 	done := make(chan os.Signal, 1)
 	signal.Notify(done, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)

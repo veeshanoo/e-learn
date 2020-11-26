@@ -3,6 +3,7 @@ package mongodb
 import (
 	"bytes"
 	"context"
+	"e-learn/dbg"
 	"encoding/json"
 	"errors"
 	"fmt"
@@ -24,6 +25,8 @@ func (mc *MongoClient) InsertLesson(lesson *Lesson, courseId string) error {
 
 	lesson.Id = primitive.NewObjectID().Hex()
 	course.Lessons = append(course.Lessons, lesson)
+
+	dbg.ConsoleLog(lesson)
 
 	filter := bson.M{"_id": courseId}
 	update := bson.M{"$set": bson.M{"lessons": course.Lessons}}
